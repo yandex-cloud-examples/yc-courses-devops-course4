@@ -1,0 +1,22 @@
+stages:
+  - build
+
+build:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  only:
+    - master
+    - main
+    - dev
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"${YC_CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${YC_CI_REGISTRY_USER}" "${YC_CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+    - >-
+      /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --use-new-run
+      --snapshotMode=redo
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "${YC_CI_REGISTRY}/${YC_CI_REGISTRY_ID}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHA}"

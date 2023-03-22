@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kyverno
+  # Обратите внимание на namespace – он должен быть argocd
+  namespace: argocd
+spec:
+  destination:
+    # А вот тут уже неймспейс, куда будет устанавливаться сам чарт
+    namespace: kyverno
+    name: {{ .Values.spec.destination.name }}
+  project: default
+  source:
+    # Указываем путь до чарта
+    chart: kyverno
+    repoURL: https://kyverno.github.io/kyverno/
+    targetRevision: 2.6.0
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+      - Replace=true

@@ -1,0 +1,51 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: reference-db-creator-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get
+  - create
+  - delete
+  - update
+  - patch
+
+- apiGroups:
+  - datatransfer.yandex-cloud.jet.crossplane.io
+  resources:
+  - endpoints
+  - transfers
+  verbs:
+  - create
+  - delete
+  - get
+- apiGroups:
+  - datatransfer.yandex-cloud.jet.crossplane.io
+  resources:
+  - endpoints/status
+  - transfers/status
+  verbs:
+  - get
+
+- apiGroups:
+  - mdb.yandex-cloud.jet.crossplane.io
+  resources:
+  - postgresqlclusters
+  - postgresqlusers
+  - postgresqldatabases
+  verbs:
+  - create
+  - delete
+  - get
+- apiGroups:
+  - mdb.yandex-cloud.jet.crossplane.io
+  resources:
+  - postgresqlclusters/status
+  - postgresqlusers/status
+  - postgresqldatabases/status
+  verbs:
+  - get

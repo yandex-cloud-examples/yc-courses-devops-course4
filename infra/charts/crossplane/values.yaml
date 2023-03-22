@@ -1,0 +1,69 @@
+affinity: {}
+args: {}
+configuration:
+  packages: []
+customLabels: {}
+deploymentStrategy: RollingUpdate
+extraEnvVarsCrossplane: {}
+extraEnvVarsRBACManager: {}
+image:
+  pullPolicy: IfNotPresent
+  repository: cr.yandex/yc-marketplace/crossplane-mirror/crossplane
+  tag: v1.6.3
+imagePullSecrets:
+- dockerhub
+leaderElection: true
+metrics:
+  enabled: false
+nodeSelector: {}
+packageCache:
+  medium: ""
+  pvc: ""
+  sizeLimit: 5Mi
+podSecurityContextCrossplane: {}
+podSecurityContextRBACManager: {}
+priorityClassName: ""
+provider:
+  packages:
+  - cr.yandex/crp0kch415f0lke009ft/crossplane/provider-jet-yc:v0.1.19
+providerJetYC:
+  creds: ""
+rbacManager:
+  affinity: {}
+  args: {}
+  deploy: true
+  leaderElection: true
+  managementPolicy: All
+  nodeSelector: {}
+  replicas: 1
+  skipAggregatedClusterRoles: false
+  tolerations: {}
+registryCaBundleConfig: {}
+replicas: 1
+resourcesCrossplane:
+  limits:
+    cpu: 100m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+resourcesRBACManager:
+  limits:
+    cpu: 100m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+securityContextCrossplane:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  runAsGroup: 65532
+  runAsUser: 65532
+securityContextRBACManager:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  runAsGroup: 65532
+  runAsUser: 65532
+serviceAccount:
+  customAnnotations: {}
+tolerations: {}

@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: todofrontend
+  # Обратите внимание на namespace – он должен быть argocd
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: front=cr.yandex/crpqmhrjrf37vj03e2lm/yc-courses/todofrontend
+    argocd-image-updater.argoproj.io/front.update-strategy: latest
+    argocd-image-updater.argoproj.io/front.allow-tags: regexp:^main-.*
+spec:
+  destination:
+    # А вот тут уже неймспейс, куда будет устанавливаться сам чарт
+    namespace: todofrontend
+    name: {{ .Values.spec.destination.name }}
+  project: todoapp
+  source:
+    # Указываем путь до чарта
+    path: charts/todofrontend
+    repoURL: {{ .Values.spec.source.appsRepoURL }}
+    targetRevision: {{ .Values.spec.source.appsTargetRevision }}
+    helm:
+      valueFiles:
+        - secrets+age-import:///helm-secrets-private-keys-apps/key.txt?../../values/todofrontend-prod.yaml
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,20 @@
+clusterSecretStore:
+  name: 
+  authSecret:
+    name: 
+    key: 
+    namespace: 
+
+externalSecrets:
+  - name: 
+    refreshInterval: 
+    secretStoreRef:
+      name: 
+      kind:
+    target:
+      name:
+    data:
+      - secretKey: 
+        remoteRef:
+          key: 
+          property: 

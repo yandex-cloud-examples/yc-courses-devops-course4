@@ -1,0 +1,32 @@
+# Создаем неймспейс для gitlab-runner
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gitlab-runner
+  annotations:
+    # С помощью этого параметра указываем порядок создания
+    argocd.argoproj.io/sync-wave: "-1"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitlab-runner
+  # Обратите внимание на namespace – он должен быть argocd
+  namespace: argocd
+spec:
+  destination:
+    # А вот тут уже неймспейс, куда будет устанавливаться сам чарт
+    namespace: gitlab-runner
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    # Указываем путь до чарта
+    path: charts/gitlab-runner
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+    # Указываем путь до файла
+    helm:
+      valueFiles:
+        - secrets+age-import:///helm-secrets-private-keys/key.txt?../../values/gitlab-runner.yaml
+  syncPolicy:
+    automated: {}

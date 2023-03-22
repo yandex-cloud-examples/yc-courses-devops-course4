@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster-prod
+  # Обратите внимание на namespace – он должен быть argocd
+  namespace: argocd
+spec:
+  destination:
+    # А вот тут уже неймспейс, куда будет устанавливаться сам чарт
+    namespace: infrastructure
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    # Указываем путь до чарта
+    path: charts/k8s-cluster
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+    helm:
+      valueFiles:
+        - ../../values/cluster-prod.yaml
+  syncPolicy:
+    automated: {}

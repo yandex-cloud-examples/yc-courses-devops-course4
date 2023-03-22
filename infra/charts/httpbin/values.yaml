@@ -1,0 +1,6 @@
+subnetId:
+certificateId:
+ingressIp: "51.250.98.161"
+ingressGroup: "infra-ingress"
+ingressHost: "httpbin.infra.yc-courses.ga"
+securityGroup: "yc-security-group"

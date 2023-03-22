@@ -1,0 +1,7 @@
+apiVersion: storage.yandex-cloud.jet.crossplane.io/v1alpha1
+kind: Bucket
+metadata:
+  name: logs-prod
+spec:
+  forProvider:
+    bucket: logs-prod

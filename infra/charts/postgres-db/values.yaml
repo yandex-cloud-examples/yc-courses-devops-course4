@@ -1,0 +1,10 @@
+clusterName:
+
+dbName:
+
+username:
+password:
+connLimit: 10
+grants:
+  - mdb_admin
+  - mdb_replication
