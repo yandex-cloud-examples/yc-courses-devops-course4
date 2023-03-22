@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: yc-alb-ingress-prod
+  # Обратите внимание на namespace – он должен быть argocd
+  namespace: argocd
+spec:
+  destination:
+    # А вот тут уже неймспейс, куда будет устанавливаться сам чарт
+    namespace: yc-alb-ingress
+    name: {{ .Values.spec.destination.name }}
+  project: default
+  source:
+    # Указываем путь до чарта
+    path: charts/yc-alb-ingress-controller-chart
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+    # Обратите внимание, что путь до зашифрованных
+    # values мы указываем в новом формате
+    # secrets+age-import://<key-volume-mount>/<key-name>.txt?<relative/path/to/the/encrypted/secrets.yaml>
+    helm:
+      valueFiles:
+        - secrets+age-import:///helm-secrets-private-keys/key.txt?../../values/alb-prod.yaml
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true

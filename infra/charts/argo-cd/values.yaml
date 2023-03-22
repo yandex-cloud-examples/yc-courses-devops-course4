@@ -1,0 +1,1097 @@
+apiVersionOverrides:
+  certmanager: ""
+  ingress: ""
+applicationSet:
+  affinity: {}
+  args:
+    debug: false
+    dryRun: false
+    enableLeaderElection: false
+    metricsAddr: :8080
+    policy: sync
+    probeBindAddr: :8081
+  enabled: true
+  extraArgs: []
+  extraContainers: []
+  extraEnv: []
+  extraEnvFrom: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  image:
+    pullPolicy: IfNotPresent
+    repository: cr.yandex/yc-marketplace/yandex-cloud/argo/argocd-applicationset
+    tag: v0.4.1
+  imagePullSecrets: []
+  metrics:
+    enabled: false
+    service:
+      annotations: {}
+      labels: {}
+      servicePort: 8085
+    serviceMonitor:
+      additionalLabels: {}
+      enabled: false
+      interval: 30s
+      metricRelabelings: []
+      namespace: ""
+      relabelings: []
+      selector: {}
+  name: applicationset-controller
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext: {}
+  priorityClassName: ""
+  replicaCount: 1
+  resources: {}
+  securityContext: {}
+  service:
+    annotations: {}
+    labels: {}
+    port: 7000
+    portName: webhook
+  serviceAccount:
+    annotations: {}
+    create: true
+    name: ""
+  tolerations: []
+  webhook:
+    ingress:
+      annotations: {}
+      enabled: false
+      extraPaths: []
+      hosts: []
+      ingressClassName: ""
+      labels: {}
+      pathType: Prefix
+      paths:
+      - /api/webhook
+      tls: []
+configs:
+  clusterCredentials: []
+  credentialTemplates: {}
+  gpgKeys: {}
+  gpgKeysAnnotations: {}
+  knownHosts:
+    data:
+      ssh_known_hosts: |
+        bitbucket.org ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAubiN81eDcafrgMeLzaFPsw2kNvEcqTKl/VqLat/MaB33pZy0y3rJZtnqwR2qOOvbwKZYKiEO1O6VqNEBxKvJJelCq0dTXWT5pbO2gDXC6h6QDXCaHo6pOHGPUy+YBaGQRGuSusMEASYiWunYN0vCAI8QaXnWMXNMdFP3jHAJH0eDsoiGnLPBlBp4TNm6rYI74nMzgz3B9IikW4WVK+dc8KZJZWYjAuORU3jc1c/NPskD2ASinf8v3xnfXeukU0sJ5N6m5E8VLjObPEO+mN2t/FZTMZLiFqPWc/ALSqnMnnhwrNi2rbfg/rd/IpL8Le3pSBne8+seeFVBoGqzHM9yXw==
+        github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg=
+        github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
+        github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==
+        gitlab.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFSMqzJeV9rUzU4kWitGjeR4PWSa29SPqJ1fVkhtj3Hw9xjLVXVYrU9QlYWrOLXBpQ6KWjbjTDTdDkoohFzgbEY=
+        gitlab.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfuCHKVTjquxvt6CM6tdG4SLp1Btn/nOeHHE5UOzRdf
+        gitlab.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsj2bNKTBSpIYDEGk9KxsGh3mySTRgMtXL583qmBpzeQ+jqCMRgBqB98u3z++J1sKlXHWfM9dyhSevkMwSbhoR8XIq/U0tCNyokEi/ueaBMCvbcTHhO7FcwzY92WK4Yt0aGROY5qX2UKSeOvuP4D6TPqKF1onrSzH9bx9XUf2lEdWT/ia1NEKjunUqu1xOB/StKDHMoX4/OKyIzuS0q/T1zOATthvasJFoPrAjkohTyaDUz2LN5JoH839hViyEG82yB+MjcFV5MU3N1l1QL3cVUCh93xSaua1N85qivl+siMkPGbO5xR/En4iEY6K2XPASUEMaieWVNTRCtJ4S8H+9
+        ssh.dev.azure.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7Hr1oTWqNqOlzGJOfGJ4NakVyIzf1rXYd4d7wo6jBlkLvCA4odBlL0mDUyZ0/QUfTTqeu+tm22gOsv+VrVTMk6vwRU75gY/y9ut5Mb3bR5BV58dKXyq9A9UeB5Cakehn5Zgm6x1mKoVyf+FFn26iYqXJRgzIZZcZ5V6hrE0Qg39kZm4az48o0AUbf6Sp4SLdvnuMa2sVNwHBboS7EJkm57XQPVU3/QpyNLHbWDdzwtrlS+ez30S3AdYhLKEOxAG8weOnyrtLJAUen9mTkol8oII1edf7mWWbWVf0nBmly21+nZcmCTISQBtdcyPaEno7fFQMDD26/s0lfKob4Kw8H
+        vs-ssh.visualstudio.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7Hr1oTWqNqOlzGJOfGJ4NakVyIzf1rXYd4d7wo6jBlkLvCA4odBlL0mDUyZ0/QUfTTqeu+tm22gOsv+VrVTMk6vwRU75gY/y9ut5Mb3bR5BV58dKXyq9A9UeB5Cakehn5Zgm6x1mKoVyf+FFn26iYqXJRgzIZZcZ5V6hrE0Qg39kZm4az48o0AUbf6Sp4SLdvnuMa2sVNwHBboS7EJkm57XQPVU3/QpyNLHbWDdzwtrlS+ez30S3AdYhLKEOxAG8weOnyrtLJAUen9mTkol8oII1edf7mWWbWVf0nBmly21+nZcmCTISQBtdcyPaEno7fFQMDD26/s0lfKob4Kw8H
+  knownHostsAnnotations: {}
+  repositories: {}
+  repositoryCredentials: {}
+  secret:
+    annotations: {}
+    argocdServerAdminPassword: ""
+    argocdServerAdminPasswordMtime: ""
+    argocdServerTlsConfig: {}
+    bitbucketServerSecret: ""
+    bitbucketUUID: ""
+    createSecret: true
+    extra: {}
+    githubSecret: ""
+    gitlabSecret: ""
+    gogsSecret: ""
+  styles: ""
+  tlsCerts: {}
+  tlsCertsAnnotations: {}
+controller:
+  affinity: {}
+  args:
+    appResyncPeriod: "180"
+    operationProcessors: "10"
+    repoServerTimeoutSeconds: "60"
+    selfHealTimeout: "5"
+    statusProcessors: "20"
+  clusterAdminAccess:
+    enabled: true
+  clusterRoleRules:
+    enabled: false
+    rules: []
+  containerPort: 8082
+  containerSecurityContext: {}
+  enableStatefulSet: true
+  env: []
+  envFrom: []
+  extraArgs: []
+  extraContainers: []
+  image:
+    imagePullPolicy: ""
+    repository: ""
+    tag: ""
+  initContainers: []
+  livenessProbe:
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  logFormat: text
+  logLevel: info
+  metrics:
+    applicationLabels:
+      enabled: false
+      labels: []
+    enabled: false
+    rules:
+      enabled: false
+      spec: []
+    service:
+      annotations: {}
+      labels: {}
+      servicePort: 8082
+    serviceMonitor:
+      additionalLabels: {}
+      enabled: false
+      interval: 30s
+      metricRelabelings: []
+      namespace: ""
+      relabelings: []
+      selector: {}
+  name: application-controller
+  nodeSelector: {}
+  pdb:
+    annotations: {}
+    enabled: false
+    labels: {}
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: ""
+  readinessProbe:
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  replicas: 1
+  resources: {}
+  service:
+    annotations: {}
+    labels: {}
+    port: 8082
+    portName: https-controller
+  serviceAccount:
+    annotations: {}
+    automountServiceAccountToken: true
+    create: true
+    name: argocd-application-controller
+  tolerations: []
+  topologySpreadConstraints: []
+  volumeMounts: []
+  volumes: []
+createAggregateRoles: false
+dex:
+  affinity: {}
+  containerPortGrpc: 5557
+  containerPortHttp: 5556
+  containerPortMetrics: 5558
+  containerSecurityContext: {}
+  enabled: true
+  env: []
+  envFrom: []
+  extraArgs: []
+  extraContainers: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  image:
+    imagePullPolicy: IfNotPresent
+    repository: cr.yandex/yc-marketplace/yandex-cloud/argo/dex
+    tag: v2.30.2
+  initContainers: []
+  initImage:
+    imagePullPolicy: ""
+    repository: ""
+    tag: ""
+  livenessProbe:
+    enabled: false
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  metrics:
+    enabled: false
+    service:
+      annotations: {}
+      labels: {}
+    serviceMonitor:
+      additionalLabels: {}
+      enabled: false
+      interval: 30s
+      metricRelabelings: []
+      namespace: ""
+      relabelings: []
+      selector: {}
+  name: dex-server
+  nodeSelector: {}
+  pdb:
+    annotations: {}
+    enabled: false
+    labels: {}
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: ""
+  readinessProbe:
+    enabled: false
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  resources: {}
+  serviceAccount:
+    annotations: {}
+    automountServiceAccountToken: true
+    create: true
+    name: argocd-dex-server
+  servicePortGrpc: 5557
+  servicePortGrpcName: grpc
+  servicePortHttp: 5556
+  servicePortHttpName: http
+  servicePortMetrics: 5558
+  tolerations: []
+  topologySpreadConstraints: []
+  volumeMounts:
+  - mountPath: /shared
+    name: static-files
+  volumes:
+  - emptyDir: {}
+    name: static-files
+externalRedis:
+  existingSecret: ""
+  host: ""
+  password: ""
+  port: 6379
+extraObjects: []
+fullnameOverride: ""
+global:
+  additionalLabels: {}
+  hostAliases: []
+  image:
+    imagePullPolicy: IfNotPresent
+    repository: cr.yandex/yc-marketplace/yandex-cloud/argo/argocd
+    tag: v2.3.3
+  imagePullSecrets: []
+  networkPolicy:
+    create: false
+    defaultDenyIngress: false
+  podAnnotations: {}
+  podLabels: {}
+  securityContext: {}
+kubeVersionOverride: ""
+nameOverride: argocd
+notifications:
+  affinity: {}
+  argocdUrl: null
+  bots:
+    slack:
+      affinity: {}
+      containerSecurityContext: {}
+      enabled: false
+      image:
+        imagePullPolicy: ""
+        repository: ""
+        tag: ""
+      imagePullSecrets: []
+      nodeSelector: {}
+      resources: {}
+      securityContext:
+        runAsNonRoot: true
+      service:
+        annotations: {}
+        port: 80
+        type: LoadBalancer
+      serviceAccount:
+        annotations: {}
+        create: true
+        name: argocd-notifications-bot
+      tolerations: []
+      updateStrategy:
+        type: Recreate
+  cm:
+    create: true
+    name: ""
+  containerSecurityContext: {}
+  context: {}
+  enabled: true
+  extraArgs: []
+  extraEnv: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  image:
+    imagePullPolicy: ""
+    repository: ""
+    tag: ""
+  imagePullSecrets: []
+  logLevel: info
+  metrics:
+    enabled: false
+    port: 9001
+    service:
+      annotations: {}
+      labels: {}
+    serviceMonitor:
+      additionalLabels: {}
+      enabled: false
+      selector: {}
+  name: notifications-controller
+  nodeSelector: {}
+  notifiers: {}
+  podAnnotations: {}
+  podLabels: {}
+  resources: {}
+  secret:
+    annotations: {}
+    create: true
+    items: {}
+    name: ""
+  securityContext:
+    runAsNonRoot: true
+  serviceAccount:
+    annotations: {}
+    create: true
+    name: argocd-notifications-controller
+  subscriptions: []
+  templates: {}
+  tolerations: []
+  triggers: {}
+  updateStrategy:
+    type: Recreate
+openshift:
+  enabled: false
+redis:
+  affinity: {}
+  containerPort: 6379
+  containerSecurityContext: {}
+  enabled: true
+  env: []
+  envFrom: []
+  extraArgs: []
+  extraContainers: []
+  image:
+    imagePullPolicy: IfNotPresent
+    repository: cr.yandex/yc-marketplace/yandex-cloud/argo/redis
+    tag: 6.2.6-alpine
+  initContainers: []
+  metrics:
+    containerPort: 9121
+    enabled: false
+    image:
+      imagePullPolicy: IfNotPresent
+      repository: cr.yandex/crp90nath8cmuh8ivnac/yandex-cloud/argo/redis-exporter
+      tag: 1.26.0-debian-10-r2
+    resources: {}
+    service:
+      annotations: {}
+      clusterIP: None
+      labels: {}
+      portName: http-metrics
+      servicePort: 9121
+      type: ClusterIP
+    serviceMonitor:
+      additionalLabels: {}
+      enabled: false
+      interval: 30s
+      metricRelabelings: []
+      namespace: ""
+      relabelings: []
+      selector: {}
+  name: redis
+  nodeSelector: {}
+  pdb:
+    annotations: {}
+    enabled: false
+    labels: {}
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: ""
+  resources: {}
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 999
+  service:
+    annotations: {}
+    labels: {}
+  serviceAccount:
+    annotations: {}
+    automountServiceAccountToken: false
+    create: false
+    name: ""
+  servicePort: 6379
+  tolerations: []
+  topologySpreadConstraints: []
+  volumeMounts: []
+  volumes: []
+redis-ha:
+  additionalAffinities: {}
+  affinity: ""
+  auth: false
+  authKey: auth
+  configmap:
+    labels: {}
+  emptyDir: {}
+  enabled: false
+  exporter:
+    address: localhost
+    enabled: true
+    extraArgs: {}
+    image: oliver006/redis_exporter
+    livenessProbe:
+      initialDelaySeconds: 15
+      periodSeconds: 15
+      timeoutSeconds: 3
+    port: 9121
+    portName: exporter-port
+    pullPolicy: IfNotPresent
+    readinessProbe:
+      initialDelaySeconds: 15
+      periodSeconds: 15
+      successThreshold: 2
+      timeoutSeconds: 3
+    resources: {}
+    scrapePath: /metrics
+    serviceMonitor:
+      enabled: false
+    tag: v1.15.1
+  extraContainers: []
+  extraInitContainers: []
+  extraVolumes: []
+  global:
+    additionalLabels: {}
+    hostAliases: []
+    image:
+      imagePullPolicy: IfNotPresent
+      repository: cr.yandex/yc-marketplace/yandex-cloud/argo/argocd
+      tag: v2.3.3
+    imagePullSecrets: []
+    networkPolicy:
+      create: false
+      defaultDenyIngress: false
+    podAnnotations: {}
+    podLabels: {}
+    securityContext: {}
+  haproxy:
+    additionalAffinities: {}
+    affinity: ""
+    annotations: {}
+    checkInterval: 1s
+    emptyDir: {}
+    enabled: true
+    hardAntiAffinity: true
+    image:
+      pullPolicy: IfNotPresent
+      repository: haproxy
+      tag: 2.0.4
+    imagePullSecrets: []
+    init:
+      resources: {}
+    labels: {}
+    lifecycle: {}
+    metrics:
+      enabled: true
+      port: 9101
+      portName: http-exporter-port
+      scrapePath: /metrics
+      serviceMonitor:
+        enabled: false
+    podSecurityPolicy:
+      create: false
+    readOnly:
+      enabled: false
+      port: 6380
+    replicas: 3
+    resources: {}
+    securityContext:
+      fsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000
+    service:
+      annotations: {}
+      loadBalancerIP: null
+      type: ClusterIP
+    serviceAccount:
+      create: true
+    stickyBalancing: false
+    timeout:
+      check: 2s
+      client: 330s
+      connect: 4s
+      server: 330s
+  hardAntiAffinity: true
+  hostPath:
+    chown: true
+  image:
+    pullPolicy: IfNotPresent
+    repository: redis
+    tag: 6.2.6-alpine
+  imagePullSecrets: []
+  init:
+    resources: {}
+  labels: {}
+  nodeSelector: {}
+  persistentVolume:
+    accessModes:
+    - ReadWriteOnce
+    annotations: {}
+    enabled: false
+    size: 10Gi
+  podDisruptionBudget: {}
+  podSecurityPolicy:
+    create: false
+  rbac:
+    create: true
+  redis:
+    annotations: {}
+    config:
+      maxmemory: "0"
+      maxmemory-policy: volatile-lru
+      min-replicas-max-lag: 5
+      min-replicas-to-write: 1
+      rdbchecksum: "yes"
+      rdbcompression: "yes"
+      repl-diskless-sync: "yes"
+      save: '""'
+    extraVolumeMounts: []
+    lifecycle: {}
+    livenessProbe:
+      failureThreshold: 5
+      initialDelaySeconds: 30
+      periodSeconds: 15
+      successThreshold: 1
+      timeoutSeconds: 15
+    masterGroupName: argocd
+    port: 6379
+    readinessProbe:
+      failureThreshold: 5
+      initialDelaySeconds: 30
+      periodSeconds: 15
+      successThreshold: 1
+      timeoutSeconds: 15
+    resources: {}
+    terminationGracePeriodSeconds: 60
+    updateStrategy:
+      type: RollingUpdate
+  replicas: 3
+  restore:
+    s3:
+      access_key: ""
+      region: ""
+      secret_key: ""
+      source: false
+    ssh:
+      key: ""
+      source: false
+    timeout: 600
+  ro_replicas: ""
+  securityContext:
+    fsGroup: 1000
+    runAsNonRoot: true
+    runAsUser: 1000
+  sentinel:
+    auth: false
+    authKey: sentinel-password
+    config:
+      down-after-milliseconds: 10000
+      failover-timeout: 180000
+      maxclients: 10000
+      parallel-syncs: 5
+    extraVolumeMounts: []
+    lifecycle: {}
+    livenessProbe:
+      failureThreshold: 5
+      initialDelaySeconds: 30
+      periodSeconds: 15
+      successThreshold: 1
+      timeoutSeconds: 15
+    port: 26379
+    quorum: 2
+    readinessProbe:
+      failureThreshold: 5
+      initialDelaySeconds: 30
+      periodSeconds: 15
+      successThreshold: 3
+      timeoutSeconds: 15
+    resources: {}
+  serviceAccount:
+    automountToken: false
+    create: true
+  sysctlImage:
+    command: []
+    enabled: false
+    mountHostSys: false
+    pullPolicy: Always
+    registry: docker.io
+    repository: busybox
+    resources: {}
+    tag: 1.31.1
+  tls:
+    caCertFile: ca.crt
+    certFile: redis.crt
+    keyFile: redis.key
+repoServer:
+  affinity: {}
+  autoscaling:
+    enabled: true
+    maxReplicas: 5
+    minReplicas: 2
+    targetCPUUtilizationPercentage: 50
+    targetMemoryUtilizationPercentage: 50
+  clusterAdminAccess:
+    enabled: false
+  clusterRoleRules:
+    enabled: false
+    rules: []
+  containerPort: 8081
+  containerSecurityContext: {}
+  copyutil:
+    resources: {}
+  env: []
+  envFrom: []
+  extraArgs: []
+  extraContainers: []
+  image:
+    imagePullPolicy: ""
+    repository: ""
+    tag: ""
+  initContainers: []
+  livenessProbe:
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  logFormat: text
+  logLevel: info
+  metrics:
+    enabled: false
+    service:
+      annotations: {}
+      labels: {}
+      servicePort: 8084
+    serviceMonitor:
+      additionalLabels: {}
+      enabled: false
+      interval: 30s
+      metricRelabelings: []
+      namespace: ""
+      relabelings: []
+      selector: {}
+  name: repo-server
+  nodeSelector: {}
+  pdb:
+    annotations: {}
+    enabled: false
+    labels: {}
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: ""
+  rbac: []
+  readinessProbe:
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  replicas: 1
+  resources: {}
+  service:
+    annotations: {}
+    labels: {}
+    port: 8081
+    portName: https-repo-server
+  serviceAccount:
+    annotations: {}
+    automountServiceAccountToken: true
+    create: false
+    name: ""
+  tolerations: []
+  topologySpreadConstraints: []
+  volumeMounts: []
+  volumes: []
+server:
+  GKEbackendConfig:
+    enabled: false
+    spec: {}
+  GKEfrontendConfig:
+    enabled: false
+    spec: {}
+  GKEmanagedCertificate:
+    domains:
+    - argocd.example.com
+    enabled: false
+  additionalApplications: []
+  additionalProjects: []
+  affinity: {}
+  autoscaling:
+    enabled: true
+    maxReplicas: 5
+    minReplicas: 2
+    targetCPUUtilizationPercentage: 50
+    targetMemoryUtilizationPercentage: 50
+  certificate:
+    additionalHosts: []
+    domain: argocd.example.com
+    duration: ""
+    enabled: false
+    issuer:
+      kind: ""
+      name: ""
+    renewBefore: ""
+    secretName: argocd-server-tls
+  clusterAdminAccess:
+    enabled: true
+  config:
+    application.instanceLabelKey: argocd.argoproj.io/instance
+    resource.customizations.health.container.yandex-cloud.jet.crossplane.io_Registry: |
+      hs = {}
+      if obj.status ~= nil then
+        if obj.status.conditions ~= nil then
+          for i, condition in ipairs(obj.status.conditions) do
+            if condition.type == "Ready" and condition.status == "False" then
+              hs.status = "Degraded"
+              hs.message = condition.message
+              return hs
+            end
+            if condition.type == "Ready" and condition.status == "True" then
+              hs.status = "Healthy"
+              hs.message = condition.message
+              return hs
+            end
+          end
+        end
+      end
+
+      hs.status = "Progressing"
+      hs.message = "Waiting for Registry"
+      return hs
+    resource.customizations.health.iam.yandex-cloud.jet.crossplane.io_FolderIAMMember: |
+      hs = {}
+      if obj.status ~= nil then
+        if obj.status.conditions ~= nil then
+          for i, condition in ipairs(obj.status.conditions) do
+            if condition.type == "Ready" and condition.status == "False" then
+              hs.status = "Degraded"
+              hs.message = condition.message
+              return hs
+            end
+            if condition.type == "Ready" and condition.status == "True" then
+              hs.status = "Healthy"
+              hs.message = condition.message
+              return hs
+            end
+          end
+        end
+      end
+
+      hs.status = "Progressing"
+      hs.message = "Waiting for FolderIAMMember"
+      return hs
+    resource.customizations.health.iam.yandex-cloud.jet.crossplane.io_ServiceAccount: |
+      hs = {}
+      if obj.status ~= nil then
+        if obj.status.conditions ~= nil then
+          for i, condition in ipairs(obj.status.conditions) do
+            if condition.type == "Ready" and condition.status == "False" then
+              hs.status = "Degraded"
+              hs.message = condition.message
+              return hs
+            end
+            if condition.type == "Ready" and condition.status == "True" then
+              hs.status = "Healthy"
+              hs.message = condition.message
+              return hs
+            end
+          end
+        end
+      end
+
+      hs.status = "Progressing"
+      hs.message = "Waiting for ServiceAccount"
+      return hs
+    resource.customizations.health.kms.yandex-cloud.jet.crossplane.io_SymmetricKey: |
+      hs = {}
+      if obj.status ~= nil then
+        if obj.status.conditions ~= nil then
+          for i, condition in ipairs(obj.status.conditions) do
+            if condition.type == "Ready" and condition.status == "False" then
+              hs.status = "Degraded"
+              hs.message = condition.message
+              return hs
+            end
+            if condition.type == "Ready" and condition.status == "True" then
+              hs.status = "Healthy"
+              hs.message = condition.message
+              return hs
+            end
+          end
+        end
+      end
+
+      hs.status = "Progressing"
+      hs.message = "Waiting for SymmetricKey"
+      return hs
+    resource.customizations.health.kubernetes.yandex-cloud.jet.crossplane.io_Cluster: |
+      hs = {}
+      if obj.status ~= nil then
+        if obj.status.conditions ~= nil then
+          for i, condition in ipairs(obj.status.conditions) do
+            if condition.type == "Ready" and condition.status == "False" then
+              hs.status = "Degraded"
+              hs.message = condition.message
+              return hs
+            end
+            if condition.type == "Ready" and condition.status == "True" then
+              hs.status = "Healthy"
+              hs.message = condition.message
+              return hs
+            end
+          end
+        end
+      end
+
+      hs.status = "Progressing"
+      hs.message = "Waiting for Cluster"
+      return hs
+    resource.customizations.health.kubernetes.yandex-cloud.jet.crossplane.io_NodeGroup: |
+      hs = {}
+      if obj.status ~= nil then
+        if obj.status.conditions ~= nil then
+          for i, condition in ipairs(obj.status.conditions) do
+            if condition.type == "Ready" and condition.status == "False" then
+              hs.status = "Degraded"
+              hs.message = condition.message
+              return hs
+            end
+            if condition.type == "Ready" and condition.status == "True" then
+              hs.status = "Healthy"
+              hs.message = condition.message
+              return hs
+            end
+          end
+        end
+      end
+
+      hs.status = "Progressing"
+      hs.message = "Waiting for NodeGroup"
+      return hs
+    resource.customizations.health.resourcemanager.yandex-cloud.jet.crossplane.io_Folder: |
+      hs = {}
+      if obj.status ~= nil then
+        if obj.status.conditions ~= nil then
+          for i, condition in ipairs(obj.status.conditions) do
+            if condition.type == "Ready" and condition.status == "False" then
+              hs.status = "Degraded"
+              hs.message = condition.message
+              return hs
+            end
+            if condition.type == "Ready" and condition.status == "True" then
+              hs.status = "Healthy"
+              hs.message = condition.message
+              return hs
+            end
+          end
+        end
+      end
+
+      hs.status = "Progressing"
+      hs.message = "Waiting for Folder"
+      return hs
+    resource.customizations.health.vpc.yandex-cloud.jet.crossplane.io_Network: |
+      hs = {}
+      if obj.status ~= nil then
+        if obj.status.conditions ~= nil then
+          for i, condition in ipairs(obj.status.conditions) do
+            if condition.type == "Ready" and condition.status == "False" then
+              hs.status = "Degraded"
+              hs.message = condition.message
+              return hs
+            end
+            if condition.type == "Ready" and condition.status == "True" then
+              hs.status = "Healthy"
+              hs.message = condition.message
+              return hs
+            end
+          end
+        end
+      end
+
+      hs.status = "Progressing"
+      hs.message = "Waiting for Network"
+      return hs
+    resource.customizations.health.vpc.yandex-cloud.jet.crossplane.io_SecurityGroup: |
+      hs = {}
+      if obj.status ~= nil then
+        if obj.status.conditions ~= nil then
+          for i, condition in ipairs(obj.status.conditions) do
+            if condition.type == "Ready" and condition.status == "False" then
+              hs.status = "Degraded"
+              hs.message = condition.message
+              return hs
+            end
+            if condition.type == "Ready" and condition.status == "True" then
+              hs.status = "Healthy"
+              hs.message = condition.message
+              return hs
+            end
+          end
+        end
+      end
+
+      hs.status = "Progressing"
+      hs.message = "Waiting for SecurityGroup"
+      return hs
+    resource.customizations.health.vpc.yandex-cloud.jet.crossplane.io_Subnet: |
+      hs = {}
+      if obj.status ~= nil then
+        if obj.status.conditions ~= nil then
+          for i, condition in ipairs(obj.status.conditions) do
+            if condition.type == "Ready" and condition.status == "False" then
+              hs.status = "Degraded"
+              hs.message = condition.message
+              return hs
+            end
+            if condition.type == "Ready" and condition.status == "True" then
+              hs.status = "Healthy"
+              hs.message = condition.message
+              return hs
+            end
+          end
+        end
+      end
+
+      hs.status = "Progressing"
+      hs.message = "Waiting for Subnet"
+      return hs
+    url: ""
+  configAnnotations: {}
+  configEnabled: true
+  containerPort: 8080
+  containerSecurityContext: {}
+  env: []
+  envFrom: []
+  extensions:
+    contents: []
+    enabled: false
+    image:
+      imagePullPolicy: IfNotPresent
+      repository: cr.yandex/crp90nath8cmuh8ivnac/yandex-cloud/argo/argocd-extensions
+      tag: v0.1.0
+    resources: {}
+  extraArgs: []
+  extraContainers: []
+  image:
+    imagePullPolicy: ""
+    repository: ""
+    tag: ""
+  ingress:
+    annotations: {}
+    enabled: false
+    extraPaths: []
+    hosts: []
+    https: false
+    ingressClassName: ""
+    labels: {}
+    pathType: Prefix
+    paths:
+    - /
+    tls: []
+  ingressGrpc:
+    annotations: {}
+    awsALB:
+      backendProtocolVersion: HTTP2
+      serviceType: NodePort
+    enabled: false
+    extraPaths: []
+    hosts: []
+    https: false
+    ingressClassName: ""
+    isAWSALB: false
+    labels: {}
+    pathType: Prefix
+    paths:
+    - /
+    tls: []
+  initContainers: []
+  lifecycle: {}
+  livenessProbe:
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  logFormat: text
+  logLevel: info
+  metrics:
+    enabled: false
+    service:
+      annotations: {}
+      labels: {}
+      servicePort: 8083
+    serviceMonitor:
+      additionalLabels: {}
+      enabled: false
+      interval: 30s
+      metricRelabelings: []
+      namespace: ""
+      relabelings: []
+      selector: {}
+  name: server
+  nodeSelector: {}
+  pdb:
+    annotations: {}
+    enabled: false
+    labels: {}
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: ""
+  rbacConfig: {}
+  rbacConfigAnnotations: {}
+  rbacConfigCreate: true
+  readinessProbe:
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  replicas: 1
+  resources: {}
+  route:
+    annotations: {}
+    enabled: false
+    hostname: ""
+    termination_policy: None
+    termination_type: passthrough
+  service:
+    annotations: {}
+    externalIPs: []
+    externalTrafficPolicy: ""
+    labels: {}
+    loadBalancerIP: ""
+    loadBalancerSourceRanges: []
+    namedTargetPort: true
+    nodePortHttp: 30080
+    nodePortHttps: 30443
+    servicePortHttp: 80
+    servicePortHttpName: http
+    servicePortHttps: 443
+    servicePortHttpsName: https
+    sessionAffinity: ""
+    type: ClusterIP
+  serviceAccount:
+    annotations: {}
+    automountServiceAccountToken: true
+    create: true
+    name: argocd-server
+  staticAssets:
+    enabled: true
+  tolerations: []
+  topologySpreadConstraints: []
+  volumeMounts: []
+  volumes: []

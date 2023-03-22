@@ -1,0 +1,28 @@
+# Создаем неймспейс для контроллера
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infrastructure
+  annotations:
+    # С помощью этого параметра указываем порядок создания
+    argocd.argoproj.io/sync-wave: "-1"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: infra-yc
+  # Обратите внимание на namespace – он должен быть argocd
+  namespace: argocd
+spec:
+  destination:
+    # А вот тут уже неймспейс, куда будет устанавливаться сам чарт
+    namespace: infrastructure
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    # Указываем путь до чарта
+    path: charts/infra-yc
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+  syncPolicy:
+    automated: {}

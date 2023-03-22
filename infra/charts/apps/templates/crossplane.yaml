@@ -1,0 +1,40 @@
+# Создаем неймспейс для контроллера
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: crossplane
+  annotations:
+    # С помощью этого параметра указываем порядок создания
+    argocd.argoproj.io/sync-wave: "-1"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: crossplane
+  # Обратите внимание на namespace – он должен быть argocd
+  namespace: argocd
+spec:
+  destination:
+    # А вот тут уже неймспейс, куда будет устанавливаться сам чарт
+    namespace: crossplane
+    server: {{ .Values.spec.destination.server }}
+  project: default
+  source:
+    # Указываем путь до чарта
+    path: charts/crossplane
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+    # Обратите внимание, что путь до зашифрованных
+    # values мы указываем в новом формате
+    # secrets+age-import://<key-volume-mount>/<key-name>.txt?<relative/path/to/the/encrypted/secrets.yaml>
+    helm:
+      valueFiles:
+        - secrets+age-import:///helm-secrets-private-keys/key.txt?../../values/crossplane.yaml
+  syncPolicy:
+    automated: {}
+  ignoreDifferences:
+    - kind: ClusterRole
+      group: rbac.authorization.k8s.io
+      name: crossplane
+      jsonPointers:
+        - /rules

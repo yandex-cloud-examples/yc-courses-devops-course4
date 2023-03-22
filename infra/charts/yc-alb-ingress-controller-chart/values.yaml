@@ -1,0 +1,54 @@
+replicaCount: 1
+
+image:
+  repository: cr.yandex/crpsjg1coh47p81vh2lc/yc-alb-ingress-controller
+  tag: v0.1.1
+  pullPolicy: IfNotPresent
+
+nameOverride: "yc-alb-ingress-controller"
+
+# The identifier of the folder where application load balancers will be located. A non-empty value is required
+folderId:
+
+# The identifier of the Kubernetes cluster. A non-empty value is required
+clusterId:
+
+# Cloud environment endpoint in the format <host>:<port>. Optional.
+endpoint: api.cloud.yandex.net:443
+
+# service account key for the ALB controller.
+saKeySecretName: yc-alb-ingress-controller-sa-key
+saKeySecretKeyFile: sa-key.json
+saKeySecretKey: ""
+
+clusterLabelName: "yc-k8s-cluster"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+  # Automount API credentials for a Service Account.
+  automountServiceAccountToken: true
+
+securityContext:
+  # capabilities:
+  #   drop:
+  #   - ALL
+  runAsNonRoot: true
+
+# Time period for the controller pod to do a graceful shutdown
+terminationGracePeriodSeconds: 10
+
+# plaintext HealthCheck port
+hcPort: 10501
+
+hcImage:
+  repository: cr.yandex/mirror/alpine/socat
+  tag: 1.7.4.2-r0
+  pullPolicy: IfNotPresent
+
+internalRootCaSecretName: ""

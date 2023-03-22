@@ -1,0 +1,15 @@
+schedule: "0 */1 * * *"
+
+imagePullSecrets: []
+
+
+image:
+  repository:
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "FIXME"
+
+
+env: {}
+
+resources: {}

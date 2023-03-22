@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ template "yc-alb-ingress-controller.fullname" . }}-hc
+  namespace: {{ .Release.Namespace }}
+  labels:
+    control-plane: {{ template "yc-alb-ingress-controller.fullname" . }}
+spec:
+  selector:
+    matchLabels:
+      name: {{ template "yc-alb-ingress-controller.fullname" . }}
+  template:
+    metadata:
+      labels:
+        name: {{ template "yc-alb-ingress-controller.fullname" . }}
+    spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+      containers:
+        - name: hc-proxy
+          image: "{{ .Values.hcImage.repository }}:{{ .Values.hcImage.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - socat
+          args:
+            - TCP-LISTEN:{{ .Values.hcPort }},fork
+            - TCP:localhost:10256
+          ports:
+            - containerPort: {{ .Values.hcPort }}
+              hostPort: {{ .Values.hcPort }}
+          resources:
+            limits:
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 200Mi
+      terminationGracePeriodSeconds: 30

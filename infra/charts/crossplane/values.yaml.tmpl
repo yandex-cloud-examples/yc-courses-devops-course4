@@ -1,0 +1,91 @@
+replicas: 1
+
+deploymentStrategy: RollingUpdate
+
+image:
+  repository: crossplane/crossplane
+  tag: %%VERSION%%
+  pullPolicy: IfNotPresent
+
+nodeSelector: {}
+tolerations: {}
+affinity: {}
+
+# -- Custom labels to add into metadata
+customLabels: {}
+
+# -- Custom Annotations to add to crossplane serviceaccount
+serviceAccount:
+  customAnnotations: {}
+
+leaderElection: true
+args: {}
+
+provider:
+  packages:
+    - cr.yandex/crp0kch415f0lke009ft/crossplane/provider-jet-yc:%%PROVIDER_VERSION%%
+
+configuration:
+  packages: []
+
+imagePullSecrets:
+- dockerhub
+
+registryCaBundleConfig: {}
+
+rbacManager:
+  deploy: true
+  skipAggregatedClusterRoles: false
+  replicas: 1
+  managementPolicy: All
+  leaderElection: true
+  args: {}
+  nodeSelector: {}
+  tolerations: {}
+  affinity: {}
+
+priorityClassName: ""
+
+resourcesCrossplane:
+  limits:
+    cpu: 100m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+securityContextCrossplane:
+  runAsUser: 65532
+  runAsGroup: 65532
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+
+packageCache:
+  medium: ""
+  sizeLimit: 5Mi
+  pvc: ""
+
+resourcesRBACManager:
+  limits:
+    cpu: 100m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+securityContextRBACManager:
+  runAsUser: 65532
+  runAsGroup: 65532
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+
+metrics:
+  enabled: false
+
+extraEnvVarsCrossplane: {}
+
+extraEnvVarsRBACManager: {}
+
+podSecurityContextCrossplane: {}
+
+podSecurityContextRBACManager: {}

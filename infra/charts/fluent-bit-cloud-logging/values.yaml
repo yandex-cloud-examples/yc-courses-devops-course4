@@ -1,0 +1,11 @@
+auth:
+  json: |
+    {}
+image: cr.yandex/yc-marketplace/yandex-cloud/fluent-bit/cloud-logging:2.0.2-1.9.3
+loggingGroupId: ""
+objectStorageBucket: ""
+objectStorageExport: false
+serviceaccountawskeyvalue: string
+serviceaccountawskeyvalue_generated:
+  accessKeyID: string
+  secretAccessKey: string

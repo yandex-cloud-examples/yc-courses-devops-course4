@@ -1,0 +1,53 @@
+{{- if eq .Values.masterType "regional" }}
+{{- $zones := list "ru-central1-a" "ru-central1-b" "ru-central1-c" }}
+{{- range $index, $zone := $zones }}
+apiVersion: kubernetes.yandex-cloud.jet.crossplane.io/v1alpha1
+kind: NodeGroup
+metadata:
+  name: {{  include "clusterFullName" $ }}-nodegroup-{{ $index }}
+spec:
+  forProvider:
+    clusterIdRef:
+      name: {{ include "clusterFullName" $ }}
+    name: {{ include "clusterFullName" $ }}-nodegroup-{{ $index }}
+    version: "{{ $.Values.clusterVersion }}"
+    instanceTemplate:
+      - platformId: "standard-v2"
+        resources:
+          - memory: {{ $.Values.nodeMem }}
+            cores: {{ $.Values.nodeCores }}
+        bootDisk:
+          - type: "network-hdd"
+            size: {{ $.Values.nodeDiskSize }}
+        schedulingPolicy:
+          - preemptible: true
+        networkInterface:
+          - securityGroupIdsRefs:
+              - name: {{ $.Values.securityGroup }}
+            nat: true
+            subnetIdsRefs:
+              - name: default-{{ $zone }}
+    scalePolicy:
+# Добавим условие для возможности выбора - использовать autoscaling или нет
+{{- if $.Values.autoscaling.enabled }}
+      - autoScale:
+          - initial: {{ $.Values.autoscaling.initialSize }}
+            max: {{ $.Values.autoscaling.maxSize }}
+            min: {{ $.Values.autoscaling.minSize }}
+{{- else }}
+      - fixedScale:
+          - size: {{ $.Values.nodeCount }}
+{{- end }}
+    allocationPolicy:
+      - location:
+          - zone: {{ $zone }}
+    maintenancePolicy:
+      - autoUpgrade: true
+        autoRepair: true
+        maintenanceWindow:
+          - startTime: "23:00"
+            duration: "3h"
+            day: "saturday"
+---
+{{- end }}
+{{- end }}

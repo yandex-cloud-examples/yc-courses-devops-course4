@@ -1,0 +1,11 @@
+apiVersion: container.yandex-cloud.jet.crossplane.io/v1alpha1
+kind: Registry
+metadata:
+  name: registry
+  annotations:
+    crossplane.io/external-name: "crpqmhrjrf37vj03e2lm"
+spec:
+  forProvider:
+    name: registry
+    folderIdRef:
+      name: default

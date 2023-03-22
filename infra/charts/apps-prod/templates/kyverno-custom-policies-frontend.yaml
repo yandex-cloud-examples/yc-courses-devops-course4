@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kyverno-custom-policies-frontend
+  # Обратите внимание на namespace – он должен быть argocd
+  namespace: argocd
+spec:
+  destination:
+    # А вот тут уже неймспейс, куда будет устанавливаться сам чарт
+    namespace: todofrontend
+    name: {{ .Values.spec.destination.name }}
+  project: default
+  source:
+    # Указываем путь до чарта
+    path: charts/kyverno-custom-policies
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+  syncPolicy:
+    automated: {}
+    syncOptions: []

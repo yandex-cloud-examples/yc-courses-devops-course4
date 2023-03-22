@@ -1,0 +1,20 @@
+clusterName: "prod"
+clusterVersion: "1.21"
+masterType: regional
+clusterZone: "ru-central1-b"
+clusterIpv4Range: "10.113.0.0/16"
+serviceIpv4Range: "10.97.0.0/16"
+nodeCount: 1
+nodeDiskSize: 64
+nodeMem: 2
+nodeCores: 2
+securityGroup: prod-security-group
+nodeSubnet: default-ru-central1-b
+releaseChannel: STABLE # Выберем для прода STABLE
+networkPolicyProvider: CALICO
+
+autoscaling:
+  enabled: true
+  initialSize: 1
+  minSize: 1
+  maxSize: 5
