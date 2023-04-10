@@ -5,7 +5,7 @@ metadata:
   # Обратите внимание на namespace – он должен быть argocd
   namespace: argocd
   annotations:
-    argocd-image-updater.argoproj.io/image-list: front=cr.yandex/crpqmhrjrf37vj03e2lm/yc-courses/todofrontend
+    argocd-image-updater.argoproj.io/image-list: front=cr.yandex/<REGISTRY_ID>/yc-courses/todofrontend
     argocd-image-updater.argoproj.io/front.update-strategy: latest
     argocd-image-updater.argoproj.io/front.allow-tags: regexp:^main-.*
 spec:
