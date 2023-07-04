@@ -1,5 +1,5 @@
 clusterName: "prod"
-clusterVersion: "1.21"
+clusterVersion: "1.24"
 masterType: regional
 clusterZone: "ru-central1-b"
 clusterIpv4Range: "10.113.0.0/16"
